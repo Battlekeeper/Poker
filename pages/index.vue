@@ -16,9 +16,10 @@
         var incoming = Number.parseFloat(event.data);
         incoming = Math.floor(incoming * 1000000);
         temp.value = incoming;
-        if (incoming > number.value)
-        number.value = incoming;
-        socket.send("Message");
+        if (incoming > number.value) {
+            number.value = incoming;
+        }
+        socket.send("");
     });
 
     socket.addEventListener('close', () => {
