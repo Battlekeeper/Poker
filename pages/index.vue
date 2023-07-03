@@ -7,12 +7,12 @@
 
     let socket = new WebSocket('ws://localhost:2999');
 
-    socket.addEventListener('open', () => {
+    socket.onopen = (event) => {
         socket.send("Start");
         console.log('Connected to WebSocket server');
-    });
+    };
 
-    socket.addEventListener('message', (event) => {
+    socket.onmessage = (event) => {
         var incoming = Number.parseFloat(event.data);
         incoming = Math.floor(incoming * 1000000);
         temp.value = incoming;
@@ -20,11 +20,8 @@
             number.value = incoming;
         }
         socket.send("");
-    });
+    }
 
-    socket.addEventListener('close', () => {
-        console.log('Disconnected from WebSocket server');
-    });
 </script>
 
 <template>
