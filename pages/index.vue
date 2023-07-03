@@ -14,7 +14,7 @@
     socket.on('message', (message) => {
         var incoming = Number.parseFloat(message);
         incoming = Math.floor(incoming * 1000000);
-        temp.value = incoming;
+        temp.value = incoming; 
         if (incoming > number.value) {
             number.value = incoming;
         }

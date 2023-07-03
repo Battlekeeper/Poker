@@ -1,12 +1,27 @@
 import { defineNuxtModule } from '@nuxt/kit'
 import { Server } from 'socket.io'
+const { instrument } = require("@socket.io/admin-ui");
 
 export default defineNuxtModule({
     setup(options, nuxt) {
+        
         nuxt.hook('listen', (server) => {
             console.log('Socket listen', server.address(), server.eventNames())
 
-            const io = new Server(server)
+            const io = new Server(server,  {
+                cors: {
+                    origin: ["https://admin.socket.io"],
+                    credentials: true
+                  }
+            })
+
+            instrument(io, {
+                auth: {
+                  type: "basic",
+                  username: "admin",
+                  password: "$2b$10$heqvAkYMez.Va6Et2uXInOnkCT6/uQj1brkrbyG3LpopDklcq7ZOS" // "changeit" encrypted with bcrypt
+                },
+              });
 
             nuxt.hook('close', () => io.close())
 
