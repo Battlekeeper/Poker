@@ -4,7 +4,7 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   modules : [
     '@nuxtjs/tailwindcss',
-    './modules/wss.ts'
+    './modules/socket.ts'
   ],
   plugins: []
 })

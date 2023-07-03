@@ -1,27 +1,25 @@
 <script setup>
     import { ref } from "vue"
+    import { io } from "socket.io-client";
 
     const route = useRouter();
     const number = ref(0);
     const temp = ref(0);
 
-    let socket = new WebSocket('ws://localhost:2999');
 
-    socket.onopen = (event) => {
-        socket.send("Start");
-        console.log('Connected to WebSocket server');
-    };
-
-    socket.onmessage = (event) => {
-        var incoming = Number.parseFloat(event.data);
+    const socket = io('http://localhost:3000');
+    socket.on('connect', () => {
+        socket.emit('message', '');
+    });
+    socket.on('message', (message) => {
+        var incoming = Number.parseFloat(message);
         incoming = Math.floor(incoming * 1000000);
         temp.value = incoming;
         if (incoming > number.value) {
             number.value = incoming;
         }
-        socket.send("");
-    }
-
+        socket.emit('message', '');
+    });
 </script>
 
 <template>
