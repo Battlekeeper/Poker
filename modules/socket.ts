@@ -14,12 +14,12 @@ export default defineNuxtModule({
                     credentials: true
                   }
             })
-
+            //https://admin.socket.io/#/
             instrument(io, {
                 auth: {
                   type: "basic",
                   username: "admin",
-                  password: "$2b$10$heqvAkYMez.Va6Et2uXInOnkCT6/uQj1brkrbyG3LpopDklcq7ZOS" // "changeit" encrypted with bcrypt
+                  password: "$2a$12$QhnvivG8actfqZaISb2Hs.DPAaej/gDuYsMN/ZKUthn1SRkbqiFPq" // "password" encrypted with bcrypt (https://bcrypt-generator.com/)
                 },
               });
 
