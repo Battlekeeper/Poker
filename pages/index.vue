@@ -26,5 +26,4 @@
     <p>This is a random number: {{number}}</p>
     <br>
     <p>{{temp}}</p>
-
 </template>
