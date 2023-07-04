@@ -1,10 +1,10 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  ssr: false,
+  ssr: true,
   devtools: { enabled: true },
   modules : [
     '@nuxtjs/tailwindcss',
-    './modules/socket.ts'
+    './modules/socket'
   ],
   plugins: []
 })

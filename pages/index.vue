@@ -7,7 +7,7 @@
     const temp = ref(0);
 
 
-    const socket = io('http://localhost:3000');
+    const socket = io('http://localhost:3000/random');
     socket.on('connect', () => {
         socket.emit('message', '');
     });

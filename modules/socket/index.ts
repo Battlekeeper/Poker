@@ -1,6 +1,10 @@
 import { defineNuxtModule } from '@nuxt/kit'
 import { Server } from 'socket.io'
+import {ChatHandlers} from "./chat"
+
 const { instrument } = require("@socket.io/admin-ui");
+
+export var io:Server
 
 export default defineNuxtModule({
     setup(options, nuxt) {
@@ -8,7 +12,7 @@ export default defineNuxtModule({
         nuxt.hook('listen', (server) => {
             console.log('Socket listen', server.address(), server.eventNames())
 
-            const io = new Server(server,  {
+            io = new Server(server,  {
                 cors: {
                     origin: ["https://admin.socket.io"],
                     credentials: true
@@ -25,26 +29,13 @@ export default defineNuxtModule({
 
             nuxt.hook('close', () => io.close())
 
-            io.on('connection', (socket) => {
-                console.log('Connection', socket.id)
-            })
-
-            io.on('connect', (socket) => {
-                //socket.emit('message', `welcome ${socket.id}`)
-                //socket.broadcast.emit('message', `${socket.id} joined`)
-
+            io.of("/random").on('connect', (socket) => {
                 socket.on('message', function message(data: any) {
-                    socket.emit('message', random())
-                })
-
-                socket.on('disconnecting', () => {
-                    //socket.broadcast.emit('message', `${socket.id} left`)
+                    socket.emit('message', Math.random())
                 })
             })
+            ChatHandlers(io)
         })
-    },
-})
 
-function random() {
-    return Math.random();
-}
+    }
+})
