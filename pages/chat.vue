@@ -17,7 +17,7 @@
         roomId = ""
     }
 
-    const socket = io('http://localhost:3000/chat')
+    const socket = io('/chat')
 
     onMounted(() => {
         socket.on('connect', () => {
@@ -41,7 +41,7 @@
         }
     }
     function JoinRoom(){
-        window.location.href = "http://localhost:3000/chat?id=" + roomIdInput.value
+        window.location.href = "/chat?id=" + roomIdInput.value
     }
 </script>
 
